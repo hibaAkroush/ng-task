@@ -3,7 +3,7 @@
   
 <center>
 <button>Add</button>
-<button>Delete</button>
+<button ng-click= "deleteManagment()">Delete</button>
 <button>Update</button>
 </center>
 
@@ -15,9 +15,11 @@
     <th>Head Name</th>
   </tr>
   <tr ng-repeat="dep in deps">
-    <td> <input type="radio"></td>
+    <td> <input ng-model="managment.id" ng-value="{{dep}}" type="radio"></td>
     <td>{{dep.id}}</td>
     <td>{{dep.name}}</td>
     <td>{{dep.head}}</td>
   </tr>
 </table>
+
+<tt>color = {{managment.id}}</tt><br/>

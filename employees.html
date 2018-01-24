@@ -5,7 +5,7 @@
 <button ng-click= "deleteEntity()">Delete</button>
 <button>Update</button>
 </center>
-<table ng-init="index=0">
+<table>
   <tr>
     <th>Select</th>
     <th>Id</th>
@@ -17,7 +17,7 @@
     <th>Manager Id</th>
   </tr>
   <tr ng-repeat="emp in emps">
-    <td> <input ng-model="employee.id" ng-value="{{emp.id}}" type="radio"></td>
+    <td> <input ng-model="employee.id" ng-value="{{emp}}" type="radio"></td>
     <td>{{emp.id}}</td>
     <td>{{emp.name}}</td>
     <td>{{emp.dep_id}}</td>
