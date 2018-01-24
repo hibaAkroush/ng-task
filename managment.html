@@ -2,7 +2,7 @@
 <br>
   
 <center>
-<button>Add</button>
+<button ng-click='newEntity=true'>Add</button>
 <button ng-click= "deleteManagment()">Delete</button>
 <button>Update</button>
 </center>
@@ -19,6 +19,13 @@
     <td>{{dep.id}}</td>
     <td>{{dep.name}}</td>
     <td>{{dep.head}}</td>
+  </tr>
+    </tr>
+    <tr ng-show="newEntity">
+    <td><h5>type here</h5><button ng-click="addDep(dep); newEntity=false">save</button></td>
+    <td><input ng-model="dep.id"></td>
+    <td><input ng-model="dep.name"></td>
+    <td><input ng-model="dep.head"></td>
   </tr>
 </table>
 

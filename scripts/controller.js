@@ -1,4 +1,6 @@
-myApp.controller('myCtrl',function ($scope, $http) {
+myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
+
+
 	$scope.employee = {
         id: null
      };
@@ -24,6 +26,24 @@ myApp.controller('myCtrl',function ($scope, $http) {
 		$scope.deps.splice(index,1)
 
 	}
+	$scope.addEmp = function (emp) {
+		console.log(emp, $scope.emps)
+		if (emp === undefined || emp.name  === undefined || emp.dep_id  === undefined || emp.sal  === undefined || emp.birthDate  === undefined || emp.hireDate  === undefined || emp.mgr_id  === undefined) {
+			alert("please enter all fields")
+		}
+		else{
+			$scope.emps.push(emp)
+		}
+	}
+	$scope.addDep = function (dep) {
+		if (dep === undefined ||  dep.name === undefined || dep.head === undefined) {
+			alert("please enter all fields")
+		}else{
+			$scope.deps.push(dep)
+		}
+
+	}
+
 
 	$http.get('../data/dep.json')
 	.then(function(response) {
@@ -35,3 +55,6 @@ myApp.controller('myCtrl',function ($scope, $http) {
     	$scope.emps = response.data
 	})
 })
+
+
+

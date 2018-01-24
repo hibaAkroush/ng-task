@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', [ 'ui.router'])
+var myApp = angular.module('myApp', [ 'ui.router', 'ngMaterial'])
 
 myApp.config(function($stateProvider){
   var managment = {
