@@ -10,7 +10,7 @@ myApp.config(function($stateProvider){
   var employees = {
     name: 'emp',
     url: '/emp',
-    template: '<h3>Its the UI-Router hello world app!</h3>'
+    templateUrl: './employees.html'
   }
 
   $stateProvider.state(managment);
