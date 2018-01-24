@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<!-- <script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+  ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>  -->
+	<title></title>
+</head>
+<body ng-app = "myApp" ng-controller="myCtrl">
+<ul>
+  <li><a ui-sref="man">Managment</a></li>
+  <li><a ui-sref="emp">Employees</a></li>
+</ul>
+
+
+<ui-view></ui-view>
+
+<script type="text/javascript" src="node_modules/angular/angular.js"></script>
+<script type="text/javascript" src="node_modules/@uirouter/angularjs/release/angular-ui-router.js"></script>
+<script src="scripts/main.js"></script>
+<script src="scripts/controller.js"></script>
+</body>
+</html>
