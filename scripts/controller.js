@@ -69,7 +69,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	}
 
 	$scope.updateEmp = function (empl) {
-		if (emp === undefined || emplad.name  === undefined || emplad.dep_id  === undefined || emplad.sal  === undefined || emplad.birthDate  === undefined || emplad.hireDate  === undefined || emplad.mgr_id  === undefined) {
+		if (empl === undefined || empl.name  === undefined || empl.dep_id  === undefined || empl.sal  === undefined || empl.birthDate  === undefined || empl.hireDate  === undefined || empl.mgr_id  === undefined) {
 			alert("please enter all fields")
 		}
 		for (var i = 0; i < this.emps.length; i++) {
