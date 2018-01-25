@@ -3,7 +3,7 @@
 <center ng-init="showFilter=false; newEntity=false; newUpdate=false">
 <button ng-click='newEntity=!newEntity'>Add</button>
 <button ng-click= "deleteEntity()">Delete</button>
-<button ng-click= "newUpdate = !newUpdate">Update</button>
+<button ng-click= "newUpdate = !newUpdate; check()">Update</button>
 <button ng-click="showFilter = !showFilter">filter</button>
 </center>
 <br>
@@ -24,7 +24,7 @@
     <th ng-click="sortData('mgr_id')">Manager Id</th>
   </tr>
   <tr ng-repeat="emp in emps | filter: entityFilter | orderBy : sortCollumn : reverseSort">
-    <td> <input ng-model="employee.id" ng-value="{{emp}}" type="radio"></td>
+    <td> <input ng-model="employee.id" ng-value="{{emp}}" type="radio" ng-click="checked=true"></td>
     <td>{{emp.id}}</td>
     <td>{{emp.name}}</td>
     <td>{{emp.dep_id}}</td>
@@ -33,24 +33,28 @@
     <td>{{emp.hireDate | date }}</td>   
     <td>{{emp.mgr_id}}</td>   
   </tr>
+  <form name="form">
     <tr ng-show="newEntity">
-    <td><h5>type here</h5><button ng-click="addEmp(emp); newEntity=false">save</button></td>
-    <td><input ng-model="emp.id"></td>
-    <td><input ng-model="emp.name"></td>
-    <td><input ng-model="emp.dep_id"></td>
-    <td><input ng-model="emp.sal"></td>
-    <td><input ng-model="emp.birthDate"></td>   
-    <td><input ng-model="emp.hireDate"></td>
-    <td><input ng-model="emp.mgr_id"></td> 
+    <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
+    <td><input ng-model="emp.id" type="number"></td>
+    <td><input ng-model="emp.name" type="text" required></td>
+    <td><input ng-model="emp.dep_id "  type="number" required></td>
+    <td><input ng-model="emp.sal" type="number" required></td>
+    <td><input ng-model="emp.birthDate"  type="date" ng-pattern="yyyy/MM/dd" required></td>   
+    <td><input ng-model="emp.hireDate"  type="date" required></td>
+    <td><input ng-model="emp.mgr_id" type="number" required></td> 
   </tr>
-    <tr ng-show="newUpdate">
+  </form>
+  <form name="form">
+    <tr ng-show="newUpdate && checked">
     <td><h5>type here</h5><button ng-click="updateEmp(empl); newUpdate=false">save</button></td>
-    <td><input ng-model="empl.id"></td>
-    <td><input ng-model="empl.name"></td>
-    <td><input ng-model="empl.dep_id"></td>
-    <td><input ng-model="empl.sal"></td>
-    <td><input ng-model="empl.birthDate"></td>   
-    <td><input ng-model="empl.hireDate"></td>
-    <td><input ng-model="empl.mgr_id"></td> 
+    <td><input ng-model="empl.id" type="number"></td>
+    <td><input ng-model="empl.name" type="text" ></td>
+    <td><input ng-model="empl.dep_id" type="number"></td>
+    <td><input ng-model="empl.sal" type="number" ></td>
+    <td><input ng-model="empl.birthDate" type="date" ></td>   
+    <td><input ng-model="empl.hireDate" type="date" ></td>
+    <td><input ng-model="empl.mgr_id"  type="number"></td> 
   </tr>
+  </form>
 </table>

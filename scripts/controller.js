@@ -8,21 +8,29 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
         id: null
      };
 	$scope.deleteEntity = function () {
+		if($scope.employee.id === null){
+			alert('Please Select An Employee')
+			return
+		}
 		for (var i = 0; i < this.emps.length; i++) {
 			if (this.emps[i].id === $scope.employee.id.id) {
 				index = i
 			}
 		}
-		if(confirm("are you sure?"))
+		if(confirm("are you sure you want to delete employee " + $scope.employee.id.name +" ?"))
 		$scope.emps.splice(index,1)
 	}
 	$scope.deleteManagment = function () {
+		if($scope.managment.id === null){
+			alert('Please Select An Department')
+			return
+		}		
 		for (var i = 0; i < this.deps.length; i++) {
 			if (this.deps[i].id === $scope.managment.id.id) {
 				index = i
 			}
 		}
-		if(confirm("are you sure?"))
+		if(confirm("are you sure you want to delete Department " + $scope.managment.id.name +" ?"))
 		$scope.deps.splice(index,1)
 
 	}
@@ -36,12 +44,15 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		}
 	}
 	$scope.addDep = function (dep) {
+		console.log(dep)
 		if (dep === undefined ||  dep.name === undefined || dep.head === undefined) {
+
 			alert("please enter all fields")
+			return
 		}else{
 			$scope.deps.push(dep)
-		}
 
+		}
 	}
 
 	$scope.updateEmp = function (empl) {
@@ -53,11 +64,22 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		this.emps[index].birthDate =  empl.birthDate
 		this.emps[index].dep_id =  empl.dep_id
 		this.emps[index].hireDate =  empl.hireDate
-		this.emps[index].id =  empl.id
+		if (!empl.id) {
+			this.emps[index].id = this.emps[index].id
+		}else{
+			this.emps[index].id =  empl.id			
+		}
 		this.emps[index].mgr_id =  empl.mgr_id
 		this.emps[index].name =  empl.name
 		this.emps[index].sal =  empl.sal
 	}
+	$scope.check = function () {
+		if($scope.managment.id === null && $scope.employee.id === null){
+			alert('Please Select')
+			return
+		}		
+	}
+
 	$scope.updateMan = function (mang) {
 		console.log(mang,this.deps )
 		for (var i = 0; i < this.deps.length; i++) {
@@ -65,8 +87,11 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 				index = i
 			}
 		}
-
-		this.deps[index].id =  mang.id
+		if (!mang.id) {
+			this.deps[index].id = this.deps[index].id
+		}else{
+			this.deps[index].id =  mang.id			
+		}
 		this.deps[index].head =  mang.head
 		this.deps[index].name =  mang.name
 	}
