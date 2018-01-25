@@ -70,6 +70,14 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		this.deps[index].head =  mang.head
 		this.deps[index].name =  mang.name
 	}
+	$scope.sortCollumn = "name"
+	$scope.reverseSort = false
+
+	$scope.sortData = function (collumn) {
+		console.log("clicked")
+		$scope.reverseSort = ($scope.sortCollumn == collumn) ? !$scope.reverseSort : false
+		$scope.sortCollumn = collumn
+	}
 	$http.get('../data/dep.json')
 	.then(function(response) {
     	$scope.deps = response.data
