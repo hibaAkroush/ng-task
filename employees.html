@@ -3,7 +3,7 @@
 <center ng-init="showFilter=false; newEntity=false; cope.checked=false; employee.newUpdate=false">
 <button ng-click='newEntity=!newEntity'>Add</button>
 <button ng-click= "deleteEntity()">Delete</button>
-<button ng-click= "employee.newUpdate = !employee.newUpdate; check()">Update</button>
+<button ng-click= "employee.newUpdate = !employee.newUpdate; checkEmp()">Update</button>
 <button ng-click="showFilter = !showFilter">filter</button>
 </center>
 <br>
@@ -33,28 +33,31 @@
     <td>{{emp.hireDate | date }}</td>   
     <td>{{emp.mgr_id}}</td>   
   </tr>
-  <form name="form">
+  <form name="form" novalidate="">
     <tr ng-show="newEntity">
     <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
-    <td><input ng-model="emp.id" type="number"></td>
-    <td><input ng-model="emp.name" type="text" required></td>
-    <td><input ng-model="emp.dep_id "  type="number" required></td>
-    <td><input ng-model="emp.sal" type="number" required></td>
+    <td><input ng-model="emp.id" type="number"  min="0"></td>
+    <td><input ng-model="emp.name" name="uName" type="text" required=""></td>
+    <td><input ng-model="emp.dep_id "  type="number" required  min="0"> </td>
+    <td><input ng-model="emp.sal" type="number" required min="0" ></td>
     <td><input ng-model="emp.birthDate"  type="date" ng-pattern="yyyy/MM/dd" required></td>   
     <td><input ng-model="emp.hireDate"  type="date" required></td>
-    <td><input ng-model="emp.mgr_id" type="number" required></td> 
+    <td><input ng-model="emp.mgr_id" type="number" required  min="0"></td> 
   </tr>
+  <div ng-show="form.$submitted || form.uName.$touched">
+    <div ng-show="form.uName.$error.required">Tell us your name.</div>
+  </div>
   </form>
   <form name="form">
     <tr ng-show="employee.newUpdate && cope.checked">
     <td><h5>type here</h5><button ng-click="updateEmp(empl); employee.newUpdate=false">save</button></td>
-    <td><input ng-model="empl.id" type="number"></td>
+    <td><input ng-model="empl.id" type="number"  min="0"></td>
     <td><input ng-model="empl.name" type="text" ></td>
-    <td><input ng-model="empl.dep_id" type="number"></td>
-    <td><input ng-model="empl.sal" type="number" ></td>
+    <td><input ng-model="empl.dep_id" type="number"  min="0"></td>
+    <td><input ng-model="empl.sal" type="number"  min="0" ></td>
     <td><input ng-model="empl.birthDate" type="date" ></td>   
     <td><input ng-model="empl.hireDate" type="date" ></td>
-    <td><input ng-model="empl.mgr_id"  type="number"></td> 
+    <td><input ng-model="empl.mgr_id"  type="number"  min="0"></td> 
   </tr>
   </form>
 </table>
