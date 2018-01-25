@@ -1,10 +1,17 @@
 <br>
 <br>
-<center>
-<button ng-click='newEntity=true'>Add</button>
+<center ng-init="showFilter=false; newEntity=false; newUpdate=false">
+<button ng-click='newEntity=!newEntity'>Add</button>
 <button ng-click= "deleteEntity()">Delete</button>
-<button ng-click= "newUpdate=true">Update</button>
+<button ng-click= "newUpdate = !newUpdate">Update</button>
+<button ng-click="showFilter = !showFilter">filter</button>
 </center>
+<br>
+<center ng-show="showFilter">
+    <label>Input Search Entity</label>
+    <input type="" name=""  ng-model="entityFilter">
+</center>
+<br>
 <table>
   <tr>
     <th>Select</th>
@@ -16,7 +23,7 @@
     <th>Hiring Date</th>
     <th>Manager Id</th>
   </tr>
-  <tr ng-repeat="emp in emps">
+  <tr ng-repeat="emp in emps | filter: entityFilter">
     <td> <input ng-model="employee.id" ng-value="{{emp}}" type="radio"></td>
     <td>{{emp.id}}</td>
     <td>{{emp.name}}</td>
