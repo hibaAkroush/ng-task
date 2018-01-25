@@ -2,11 +2,14 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 
 
 	$scope.employee = {
-        id: null
+        id: null,
+        newUpdate : false
      };
      $scope.managment = {
-        id: null
+        id: null,
+        newUpdate : false
      };
+
 	$scope.deleteEntity = function () {
 		if($scope.employee.id === null){
 			alert('Please Select An Employee')
@@ -36,6 +39,9 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	}
 	$scope.addEmp = function (emp) {
 		console.log(emp, $scope.emps)
+		if(emp.id === undefined){
+			emp.id === $scope.emps.length
+		}
 		if (emp === undefined || emp.name  === undefined || emp.dep_id  === undefined || emp.sal  === undefined || emp.birthDate  === undefined || emp.hireDate  === undefined || emp.mgr_id  === undefined) {
 			alert("please enter all fields")
 		}
@@ -45,6 +51,9 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	}
 	$scope.addDep = function (dep) {
 		console.log(dep)
+		if (dep.id === undefined) {
+			dep.id = $scope.deps.length
+		}
 		if (dep === undefined ||  dep.name === undefined || dep.head === undefined) {
 
 			alert("please enter all fields")
@@ -74,8 +83,16 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		this.emps[index].sal =  empl.sal
 	}
 	$scope.check = function () {
-		if($scope.managment.id === null && $scope.employee.id === null){
+		if($scope.employee.id === null){
 			alert('Please Select')
+			this.employee.newUpdate = false
+			return
+		}		
+	}
+	$scope.check = function () {
+		if($scope.managment.id === null){
+			alert('Please Select')
+			this.managment.newUpdate = false
 			return
 		}		
 	}
