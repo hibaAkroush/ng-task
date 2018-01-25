@@ -44,7 +44,32 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 
 	}
 
+	$scope.updateEmp = function (empl) {
+		for (var i = 0; i < this.emps.length; i++) {
+			if (this.emps[i].id === $scope.employee.id.id) {
+				index = i
+			}
+		}
+		this.emps[index].birthDate =  empl.birthDate
+		this.emps[index].dep_id =  empl.dep_id
+		this.emps[index].hireDate =  empl.hireDate
+		this.emps[index].id =  empl.id
+		this.emps[index].mgr_id =  empl.mgr_id
+		this.emps[index].name =  empl.name
+		this.emps[index].sal =  empl.sal
+	}
+	$scope.updateMan = function (mang) {
+		console.log(mang,this.deps )
+		for (var i = 0; i < this.deps.length; i++) {
+			if (this.deps[i].id === $scope.managment.id.id) {
+				index = i
+			}
+		}
 
+		this.deps[index].id =  mang.id
+		this.deps[index].head =  mang.head
+		this.deps[index].name =  mang.name
+	}
 	$http.get('../data/dep.json')
 	.then(function(response) {
     	$scope.deps = response.data

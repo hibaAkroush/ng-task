@@ -3,7 +3,7 @@
 <center>
 <button ng-click='newEntity=true'>Add</button>
 <button ng-click= "deleteEntity()">Delete</button>
-<button>Update</button>
+<button ng-click= "newUpdate=true">Update</button>
 </center>
 <table>
   <tr>
@@ -35,5 +35,15 @@
     <td><input ng-model="emp.birthDate"></td>   
     <td><input ng-model="emp.hireDate"></td>
     <td><input ng-model="emp.mgr_id"></td> 
+  </tr>
+    <tr ng-show="newUpdate">
+    <td><h5>type here</h5><button ng-click="updateEmp(empl); newUpdate=false">save</button></td>
+    <td><input ng-model="empl.id"></td>
+    <td><input ng-model="empl.name"></td>
+    <td><input ng-model="empl.dep_id"></td>
+    <td><input ng-model="empl.sal"></td>
+    <td><input ng-model="empl.birthDate"></td>   
+    <td><input ng-model="empl.hireDate"></td>
+    <td><input ng-model="empl.mgr_id"></td> 
   </tr>
 </table>
