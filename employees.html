@@ -47,8 +47,8 @@
       </select>
     </td>
     <td><input ng-model="emp.sal" type="number" required min="0" ></td>
-    <td><input ng-model="emp.birthDate"  type="date" ng-pattern="yyyy/MM/dd" required></td>   
-    <td><input ng-model="emp.hireDate"  type="date" required></td>
+    <td><input kendo-date-picker ng-model="emp.birthDate"  type="date" ng-pattern="yyyy/MM/dd" required></td>   
+    <td><input kendo-date-picker ng-model="emp.hireDate"  type="date" required></td>
     <td>
       <select ng-model="emp.mgr_id" required>
         <option value=1>1</option>
@@ -76,8 +76,8 @@
       </select>
     </td>
     <td><input ng-model="empl.sal" type="number"  min="0" ></td>
-    <td><input ng-model="empl.birthDate" type="date" ></td>   
-    <td><input ng-model="empl.hireDate" type="date" ></td>
+    <td><input kendo-date-picker ng-model="empl.birthDate" type="date" ></td>   
+    <td><input kendo-date-picker ng-model="empl.hireDate" type="date" ></td>
     <td>
       <select ng-model="empl.mgr_id" required>
         <option value=1>1</option>
