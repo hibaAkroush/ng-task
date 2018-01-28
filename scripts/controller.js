@@ -42,11 +42,16 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	}
 	$scope.addEmp = function (emp) {
 		console.log(emp, $scope.emps)
+		console.log("value: ", typeof(Number(emp.dep_id.value)))
+		emp.dep_id = Number(emp.dep_id.value)
+		emp.mgr_id = Number(emp.mgr_id.value)
+		console.log(emp)
 		if (emp === undefined || emp.name  === undefined || emp.dep_id  === undefined || emp.sal  === undefined || emp.birthDate  === undefined || emp.hireDate  === undefined || emp.mgr_id  === undefined) {
 			alert("please enter all fields")
 		}
 		else{
 			if(emp.id === undefined){
+				console.log(emp.dep_id, emp.mgr_id)
 				emp.id === $scope.emps.length
 			}
 			$scope.emps.push(emp)
@@ -69,6 +74,10 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	}
 
 	$scope.updateEmp = function (empl) {
+		console.log(empl)
+		empl.mgr_id = Number(empl.mgr_id.value)
+		empl.dep_id = Number(empl.dep_id.value)
+		console.log(empl)
 		if (empl === undefined || empl.name  === undefined || empl.dep_id  === undefined || empl.sal  === undefined || empl.birthDate  === undefined || empl.hireDate  === undefined || empl.mgr_id  === undefined) {
 			alert("please enter all fields")
 		}

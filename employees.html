@@ -36,21 +36,21 @@
   <form name="form" novalidate="">
     <tr ng-show="newEntity">
     <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
-    <td><input ng-model="emp.id" type="number"  min="0"></td>
-    <td><input ng-model="emp.name" name="uName" type="text" required=""></td>
+    <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
+    <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>
     <td>
-      <select ng-model="emp.dep_id" required>
+      <select kendo-dropdownlist k-ng-model="emp.dep_id" required>
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
         <option value=4>4</option>
       </select>
     </td>
-    <td><input ng-model="emp.sal" type="number" required min="0" ></td>
-    <td><input kendo-date-picker ng-model="emp.birthDate"  type="date" ng-pattern="yyyy/MM/dd" required></td>   
-    <td><input kendo-date-picker ng-model="emp.hireDate"  type="date" required></td>
+    <td><input class="k-textbox" ng-model="emp.sal" type="number" required min="0" ></td>
+    <td><input kendo-date-picker ng-model="emp.birthDate" required></td>   
+    <td><input kendo-date-picker ng-model="emp.hireDate" required></td>
     <td>
-      <select ng-model="emp.mgr_id" required>
+      <select kendo-dropdownlist k-ng-model="emp.mgr_id" required>
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -65,21 +65,21 @@
   <form name="form">
     <tr ng-show="employee.newUpdate && cope.checked">
     <td><h5>type here</h5><button ng-click="updateEmp(empl); employee.newUpdate=false">save</button></td>
-    <td><input ng-model="empl.id" type="number"  min="0"></td>
-    <td><input ng-model="empl.name" type="text" ></td>
+    <td><input kendo-numerictextbox ng-model="empl.id" type="number"  min="0"></td>
+    <td><input  class="k-textbox" ng-model="empl.name" type="text" ></td>
     <td>
-      <select ng-model="empl.dep_id" required>
+      <select kendo-dropdownlist k-ng-model="empl.dep_id" required>
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
         <option value=4>4</option>
       </select>
     </td>
-    <td><input ng-model="empl.sal" type="number"  min="0" ></td>
-    <td><input kendo-date-picker ng-model="empl.birthDate" type="date" ></td>   
-    <td><input kendo-date-picker ng-model="empl.hireDate" type="date" ></td>
+    <td><input class="k-textbox" ng-model="empl.sal" type="number"  min="0" ></td>
+    <td><input kendo-date-picker ng-model="empl.birthDate"></td>   
+    <td><input kendo-date-picker ng-model="empl.hireDate"></td>
     <td>
-      <select ng-model="empl.mgr_id" required>
+      <select kendo-dropdownlist k-ng-model="empl.mgr_id" required>
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>

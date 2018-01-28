@@ -30,19 +30,19 @@
   <form name="form">
   <tr ng-show="newEntity">
     <td><h5>type here</h5><button ng-click="addDep(dep); newEntity=false">save</button></td>
-    <td><input ng-model="dep.id" type="number"  min="0"></td>
-    <td><input ng-model="dep.name" type="text" required></td>
-    <td><input ng-model="dep.head" type="text" required></td>
+    <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
+    <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
+    <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
   </tr>
   </form>
   <form name="form">
   <tr ng-show="managment.newUpdate  && cope.checked">
     <td><h5>type here</h5><button ng-click="updateMan(mang); managment.newUpdate=false">save</button></td>
-    <td><input ng-model="mang.id" type="number"  min="0"></td>
-    <td><input ng-model="mang.name" type="text" required></td>
-    <td><input ng-model="mang.head" type="text" required></td>
+    <td><input kendo-numerictextbox ng-model="mang.id" type="number"  min="0"></td>
+    <td><input  class="k-textbox" ng-model="mang.name" type="text" required></td>
+    <td><input class="k-textbox" ng-model="mang.head" type="text" required></td>
   </tr>
   </form>
-</table>
+</table>  
 
 <tt>color = {{managment.id}}</tt><br/>
