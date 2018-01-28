@@ -38,11 +38,25 @@
     <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
     <td><input ng-model="emp.id" type="number"  min="0"></td>
     <td><input ng-model="emp.name" name="uName" type="text" required=""></td>
-    <td><input ng-model="emp.dep_id "  type="number" required  min="0"> </td>
+    <td>
+      <select ng-model="emp.dep_id" required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+      </select>
+    </td>
     <td><input ng-model="emp.sal" type="number" required min="0" ></td>
     <td><input ng-model="emp.birthDate"  type="date" ng-pattern="yyyy/MM/dd" required></td>   
     <td><input ng-model="emp.hireDate"  type="date" required></td>
-    <td><input ng-model="emp.mgr_id" type="number" required  min="0"></td> 
+    <td>
+      <select ng-model="emp.mgr_id" required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+      </select>
+    </td> 
   </tr>
   <div ng-show="form.$submitted || form.uName.$touched">
     <div ng-show="form.uName.$error.required">Tell us your name.</div>
@@ -53,11 +67,25 @@
     <td><h5>type here</h5><button ng-click="updateEmp(empl); employee.newUpdate=false">save</button></td>
     <td><input ng-model="empl.id" type="number"  min="0"></td>
     <td><input ng-model="empl.name" type="text" ></td>
-    <td><input ng-model="empl.dep_id" type="number"  min="0"></td>
+    <td>
+      <select ng-model="empl.dep_id" required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+      </select>
+    </td>
     <td><input ng-model="empl.sal" type="number"  min="0" ></td>
     <td><input ng-model="empl.birthDate" type="date" ></td>   
     <td><input ng-model="empl.hireDate" type="date" ></td>
-    <td><input ng-model="empl.mgr_id"  type="number"  min="0"></td> 
+    <td>
+      <select ng-model="empl.mgr_id" required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+      </select>
+    </td>
   </tr>
   </form>
 </table>
