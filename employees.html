@@ -7,63 +7,46 @@
 <button ng-click="showFilter = !showFilter">filter</button>
 </center>
 <br>
+
 <center ng-show="showFilter">
     <label>Input Search Entity</label>
     <input type="" name=""  ng-model="entityFilter">
 </center>
-<br>
-<table>
-  <tr>
-    <th>Select</th>
-    <th ng-click="sortData('id')">Id</th>
-    <th ng-click="sortData('name')">Name</th>
-    <th ng-click="sortData('dep_id')">Department Id</th>
-    <th ng-click="sortData('sal')">Salary</th>
-    <th ng-click="sortData('birthDate')">Birth Date</th>
-    <th ng-click="sortData('hireDate')">Hiring Date</th>
-    <th ng-click="sortData('mgr_id')">Manager Id</th>
-  </tr>
-  <tr ng-repeat="emp in emps | filter: entityFilter | orderBy : sortCollumn : reverseSort">
-    <td> <input ng-model="employee.id" ng-value="{{emp}}" type="radio" ng-click="cope.checked = true"></td>
-    <td>{{emp.id}}</td>
-    <td>{{emp.name}}</td>
-    <td>{{emp.dep_id}}</td>
-    <td>{{emp.sal | currency}}</td>
-    <td>{{emp.birthDate | date}}</td>
-    <td>{{emp.hireDate | date }}</td>   
-    <td>{{emp.mgr_id}}</td>   
-  </tr>
-  <form name="form" novalidate="">
-    <tr ng-show="newEntity">
+<div ng-show="newEntity">
     <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
     <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
     <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>
     <td>
-      <select kendo-dropdownlist k-ng-model="emp.dep_id" required>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-      </select>
+      <select 
+      kendo-dropdownlist
+      k-ng-model="emp.dep_id"
+      k-data-value-field="'depID'"
+      k-data-text-field="'depName'"
+      k-data-source="dropDataSourceDep"
+      required></select>
     </td>
     <td><input class="k-textbox" ng-model="emp.sal" type="number" required min="0" ></td>
     <td><input kendo-date-picker ng-model="emp.birthDate" required></td>   
     <td><input kendo-date-picker ng-model="emp.hireDate" required></td>
     <td>
-      <select kendo-dropdownlist k-ng-model="emp.mgr_id" required>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-      </select>
+      <select 
+      kendo-dropdownlist
+      k-ng-model="emp.mgr_id"
+      k-data-value-field="'mgrID'"
+      k-data-text-field="'mgrName'"
+      k-data-source="dropDataSourceMgr"
+      required></select>
     </td> 
-  </tr>
-  <div ng-show="form.$submitted || form.uName.$touched">
-    <div ng-show="form.uName.$error.required">Tell us your name.</div>
   </div>
+<br>
+
+<kendo-grid 
+k-options="gridOptionsEmp">
+</kendo-grid>
+
   </form>
   <form name="form">
-    <tr ng-show="employee.newUpdate && cope.checked">
+    <div ng-show="employee.newUpdate && cope.checked">
     <td><h5>type here</h5><button ng-click="updateEmp(empl); employee.newUpdate=false">save</button></td>
     <td><input kendo-numerictextbox ng-model="empl.id" type="number"  min="0"></td>
     <td><input  class="k-textbox" ng-model="empl.name" type="text" ></td>
@@ -86,6 +69,4 @@
         <option value=4>4</option>
       </select>
     </td>
-  </tr>
-  </form>
-</table>
+  </div>

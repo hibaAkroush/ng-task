@@ -3,7 +3,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color:  #4CAF50;
 }
 
 li {
@@ -50,7 +50,4 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-}
-td  .k-textbox {
-    margin: 0 5px 5px 0;
 }

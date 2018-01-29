@@ -13,36 +13,26 @@
     <input type="" name=""  ng-model="entityFilter">
 </center>
 <br>
-<table>
-  <tr>
-    <th >Select</th>
-    <th ng-click="sortData('id')">Id</th>
-    <th ng-click="sortData('name')">Name</th>
-    <th ng-click="sortData('head')">Head Name</th>
-  </tr>
-  <tr ng-repeat="dep in deps | filter: entityFilter | orderBy : sortCollumn : reverseSort" >
-    <td> <input ng-model="managment.id" ng-value="{{dep}}" type="radio" ng-click="cope.checked = true"></td>
-    <td>{{dep.id}}</td>
-    <td>{{dep.name}}</td>
-    <td>{{dep.head}}</td>
-  </tr>
-    </tr>
-  <form name="form">
-  <tr ng-show="newEntity">
-    <td><h5>type here</h5><button ng-click="addDep(dep); newEntity=false">save</button></td>
-    <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
-    <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
-    <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
-  </tr>
-  </form>
-  <form name="form">
-  <tr ng-show="managment.newUpdate  && cope.checked">
-    <td><h5>type here</h5><button ng-click="updateMan(mang); managment.newUpdate=false">save</button></td>
-    <td><input kendo-numerictextbox ng-model="mang.id" type="number"  min="0"></td>
-    <td><input  class="k-textbox" ng-model="mang.name" type="text" required></td>
-    <td><input class="k-textbox" ng-model="mang.head" type="text" required></td>
-  </tr>
-  </form>
-</table>  
+
+<kendo-grid 
+k-options="gridOptionsMan">
+</kendo-grid>
+
+
+
+<div ng-show="newEntity">
+  <td><h5>type here</h5><button ng-click="addDep(dep); newEntity=false">save</button></td>
+  <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
+  <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
+  <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
+</div>
+
+<div ng-show="managment.newUpdate  && cope.checked">
+  <td><h5>type here</h5><button ng-click="updateMan(mang); managment.newUpdate=false">save</button></td>
+  <td><input kendo-numerictextbox ng-model="mang.id" type="number"  min="0"></td>
+  <td><input  class="k-textbox" ng-model="mang.name" type="text" required></td>
+  <td><input class="k-textbox" ng-model="mang.head" type="text" required></td>
+</div>
+
 
 <tt>color = {{managment.id}}</tt><br/>
