@@ -1,10 +1,5 @@
 myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
-	$scope.filterChange = function(entityFilter){
-		console.log(entityFilter)
-		$scope.entityFilter = entityFilter;
-		console.log($scope.entityFilter)
-		$scope.workers.sync();
-	}
+
     $scope.onChange = function(data){
 		console.log(data)
 		$scope.employee.selected = data;
@@ -134,7 +129,6 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	$scope.depatments = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
-		filterable: true,
 		transport : {
 			read : {
 				url : "../data/dep.json",
