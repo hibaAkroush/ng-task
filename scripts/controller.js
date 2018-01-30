@@ -25,6 +25,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	$scope.workers = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
+		pageSize: 2,
 		transport : {
 			read : {
 				url : "../data/emp.json",
@@ -131,6 +132,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	$scope.depatments = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
+		pageSize: 2,
 		transport : {
 			read : {
 				url : "../data/dep.json",
@@ -210,6 +212,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
       sortable: true,
       selectable: true,
 	  editable: "inline",
+	  pageable: true,
 	  filterable: {mode : "row"},
 	  dataSource : $scope.workers,
       columns: [{
@@ -259,6 +262,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
       sortable: true,
 	  selectable : true,
 	  editable: "inline",
+	  pageable: true,
 	  filterable: {mode : "row"},
       dataSource : $scope.depatments,
       columns:  [{
