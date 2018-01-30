@@ -1,6 +1,6 @@
 <br>
 <br>
-<center ng-init="showFilter=false; newEntity=false; employee.newUpdate=false">
+<center ng-init="showFilter=false; newEntity=false; employee.selected=false">
 <button ng-click='newEntity=!newEntity'>Add</button>
 <button ng-click="updateEmp(emp)">Update</button>
 <button ng-click= "handleDelete(data, dataItem, columns)">Delete</button>
@@ -45,7 +45,7 @@ k-options="gridOptionsEmp"
 k-on-change="onChange(data)"
 k-selectable="true">
 </kendo-grid>
-<div ng-show="selected">
+<div ng-show="employee.selected">
   <td><h5>type here</h5><button  ng-click="update(emp)">save</button></td>
   <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
   <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>

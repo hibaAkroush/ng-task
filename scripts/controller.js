@@ -76,11 +76,11 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	});
     $scope.onChange = function(data){
 		console.log(data);
-		$scope.selected = data;
+		$scope.employee.selected = data;
 		$scope.emp = data;
 	  };
 	  $scope.onChangeMan = function(data){
-		$scope.selectedMan = data;
+		$scope.managment.selectedMan = data;
 		$scope.dep = data;
 	  }
 	$scope.update = function(emp){
@@ -91,9 +91,20 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			}
 		})
 		console.log($scope.workers.data())
+		$scope.employee.selected = false
 		// var worker = $scope.workers.at(3);
 		// worker.set(worker, emp);
 		// $scope.workers.sync();
+	}
+	$scope.updateMan = function(dep){
+		console.log("works?")
+		$scope.depatments.data().map(function(item, index){
+			if(item.id === dep.id){
+				$scope.depatments[index] = dep
+			}
+		})
+		console.log($scope.workers.data())
+		$scope.managment.selectedMan = false
 	}
 	$scope.depatments = new kendo.data.DataSource({
 		autoSync: true,
@@ -274,26 +285,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			return
 		}		
 	};
-	$scope.updateMan = function (mang) {
-		if (mang === undefined ||  mang.name === undefined || mang.head === undefined) {
 
-			alert("please enter all fields")
-			return
-		}
-		console.log(mang,this.deps )
-		for (var i = 0; i < this.deps.length; i++) {
-			if (this.deps[i].id === $scope.managment.id.id) {
-				index = i;
-			}
-		}
-		if (!mang.id) {
-			this.deps[index].id = this.deps[index].id;
-		}else{
-			this.deps[index].id =  mang.id;	
-		}
-		this.deps[index].head =  mang.head;
-		this.deps[index].name =  mang.name;
-	};
 	$scope.sortCollumn = "name";
 	$scope.reverseSort = false;
 	$scope.sortData = function (collumn) {
