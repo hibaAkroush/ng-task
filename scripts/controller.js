@@ -7,10 +7,10 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 
 	  };
 	$scope.emp = {id: 1,
-	 name: "s", dep_id: 2,
+	 name: "s", dep_id:{depID :  2},
 	 sal: 1, birthDate: "1/2/2018",
 	 hireDate:"1/2/2018",
-	 mgr_id : 2
+	 mgr_id : {mgrID:2}
 	};
 	$scope.dep = {id: 1,
 		name: "s", 
@@ -104,7 +104,9 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		$scope.dep = data;
 	  }
 	$scope.update = function(emp){
-		console.log(emp)
+		emp.dep_id = emp.dep_id.depID;
+		emp.mgr_id = emp.mgr_id.mgrID;
+		console.log("update func",emp)
 		$scope.workers.data().map(function(item, index){
 			if(item.id === emp.id){
 				$scope.workers[index] = emp
@@ -213,30 +215,37 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
       columns: [{
 	        field: "id",
 	        title: "id",
-	        width: "120px"
+			width: "120px",
+			headerTemplate: 'ID <span class="k-icon k-i-kpi"></span>'
 	        },{
-	        field: "name",
+			field: "name",
+			headerTemplate: 'Name <span class="k-icon k-i-kpi"></span>',
 	        title: "Name",
 	        width: "120px"
 	        },{
-	        field: "dep_id",
+			field: "dep_id",
+			headerTemplate: 'Department ID <span class="k-icon k-i-kpi"></span>',
 	        title: "Department Id",
 	        width: "120px"
 	        },{
-	        field: "sal",
+			field: "sal",
+			headerTemplate: 'Salary <span class="k-icon k-i-kpi"></span>',
 	        title: "Salary",
 	        width: "120px"
 	    	},{
-	        field: "birthDate",
+			field: "birthDate",
+			headerTemplate: 'Birth Date <span class="k-icon k-i-kpi"></span>',
 	        title: "Birth Date",
 	        width: "120px"
 	        },{
 	        field: "hireDate",
-	        title: "Hire Date",
+			title: "Hire Date",
+			headerTemplate: 'Hire Date <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	    	},{
 	        field: "mgr_id",
-	        title: "Manager ID",
+			title: "Manager ID",
+			headerTemplate: 'Manager ID <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	    }],
     };
@@ -254,20 +263,26 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
       dataSource : $scope.depatments,
       columns:  [{
 	        field: "id",
-	        title: "id",
+			title: "id",
+			headerTemplate: 'ID <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	        },{
 	        field: "name",
-	        title: "Name",
+			title: "Name",
+			headerTemplate: 'Name <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	        },{
 	        field: "head",
-	        title: "Head",
+			title: "Head",
+			headerTemplate: 'Head <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	    }]	
 	};
 
 	$scope.addEmp = function (emp) {
+		console.log(emp)
+		emp.dep_id = emp.dep_id.depID;
+		emp.mgr_id = emp.mgr_id.mgrID;
 		$scope.workers.add(emp);
 		var data = $scope.workers.data();
 		var lastItem = data[data.length - 1];
