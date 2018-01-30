@@ -10,8 +10,10 @@
 
 <center ng-show="showFilter">
     <label>Input Search Entity</label>
-    <input type="" name=""  ng-model="entityFilter">
-</center>
+    <input  kendo-masked-text-box type="" name=""  ng-model="entityFilter" k-on-change="filterChange(data)">
+    <button ng-click="filterChange(entityFilter)">Filter</button>
+    <button>Clear</button>
+  </center>
 <div ng-show="newEntity">
     <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
     <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>

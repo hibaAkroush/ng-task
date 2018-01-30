@@ -1,4 +1,16 @@
 myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
+	$scope.filterChange = function(entityFilter){
+		console.log(entityFilter)
+		$scope.entityFilter = entityFilter;
+		console.log($scope.entityFilter)
+		$scope.workers.sync();
+	}
+    $scope.onChange = function(data){
+		console.log(data)
+		$scope.employee.selected = data;
+		$scope.emp = data;
+
+	  };
 	$scope.emp = {id: 1,
 	 name: "s", dep_id: 2,
 	 sal: 1, birthDate: "1/2/2018",
@@ -78,11 +90,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			console.log(e.errors);
 		}
 	});
-    $scope.onChange = function(data){
-		$scope.employee.selected = data;
-		$scope.emp = data;
 
-	  };
 	 $scope.deleteFieldEmp = function(){
 		 emp = $scope.employee.selected;
 		 $scope.workers.remove(emp)
@@ -126,6 +134,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	$scope.depatments = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
+		filterable: true,
 		transport : {
 			read : {
 				url : "../data/dep.json",
@@ -205,6 +214,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
       sortable: true,
       selectable: true,
 	  editable: "inline",
+	  filterable: {mode : "row"},
 	  dataSource : $scope.workers,
       columns: [{
 	        field: "id",
@@ -246,6 +256,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
       sortable: true,
 	  selectable : true,
 	  editable: "inline",
+	  filterable: {mode : "row"},
       dataSource : $scope.depatments,
       columns:  [{
 	        field: "id",
