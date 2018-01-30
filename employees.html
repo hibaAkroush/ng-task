@@ -1,7 +1,8 @@
 <br>
 <br>
-<center ng-init="showFilter=false; newEntity=false; cope.checked=false; employee.newUpdate=false">
+<center ng-init="showFilter=false; newEntity=false; employee.newUpdate=false">
 <button ng-click='newEntity=!newEntity'>Add</button>
+<button ng-click="updateEmp(emp)">Update</button>
 <button ng-click= "handleDelete(data, dataItem, columns)">Delete</button>
 <button ng-click="showFilter = !showFilter">filter</button>
 </center>
@@ -40,6 +41,35 @@
 <br>
 
 <kendo-grid 
-k-options="gridOptionsEmp">
+k-options="gridOptionsEmp"
+k-on-change="onChange(data)"
+k-selectable="true">
 </kendo-grid>
+<div ng-show="selected">
+  <td><h5>type here</h5><button  ng-click="update(emp)">save</button></td>
+  <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
+  <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>
+  <td>
+    <select 
+    kendo-dropdownlist
+    k-ng-model="emp.dep_id"
+    k-data-value-field="'depID'"
+    k-data-text-field="'depName'"
+    k-data-source="dropDataSourceDep"
+    required></select>
+  </td>
+  <td><input class="k-textbox" ng-model="emp.sal" type="number" required min="0" ></td>
+  <td><input kendo-date-picker ng-model="emp.birthDate" required></td>   
+  <td><input kendo-date-picker ng-model="emp.hireDate" required></td>
+  <td>
+    <select 
+    kendo-dropdownlist
+    k-ng-model="emp.mgr_id"
+    k-data-value-field="'mgrID'"
+    k-data-text-field="'mgrName'"
+    k-data-source="dropDataSourceMgr"
+    required></select>
+  </td>
+</div>
+
 

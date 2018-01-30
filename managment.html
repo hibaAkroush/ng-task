@@ -14,8 +14,17 @@
 <br>
 
 <kendo-grid 
-k-options="gridOptionsMan">
+k-options="gridOptionsMan"
+k-selectable = "true"
+k-on-change="onChangeMan(data)">
 </kendo-grid>
+<div ng-show="selectedMan">
+<td><h5>type here</h5><button updateMan(depa)>Update</button></td>
+  <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
+  <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
+  <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
+  
+</div>
 
 
 

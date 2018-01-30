@@ -4,11 +4,17 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	 sal: 1, birthDate: "1/2/2018",
 	 hireDate:"1/2/2018",
 	 mgr_id : 2
-	}
+	};
 	$scope.dep = {id: 1,
 		name: "s", 
 		head : "ka"
-	}
+	};
+	$scope.empl = {id: 1,
+		name: "change", dep_id: 2,
+		sal: 1, birthDate: "1/2/2018",
+		hireDate:"1/2/2018",
+		mgr_id : 2
+	   };
 	$scope.workers = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
@@ -65,10 +71,30 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			}
 		},
 		error : function (e) {
-			console.log(e.errors)
+			console.log(e.errors);
 		}
 	});
-
+    $scope.onChange = function(data){
+		console.log(data);
+		$scope.selected = data;
+		$scope.emp = data;
+	  };
+	  $scope.onChangeMan = function(data){
+		$scope.selectedMan = data;
+		$scope.dep = data;
+	  }
+	$scope.update = function(emp){
+		console.log(emp)
+		$scope.workers.data().map(function(item, index){
+			if(item.id === emp.id){
+				$scope.workers[index] = emp
+			}
+		})
+		console.log($scope.workers.data())
+		// var worker = $scope.workers.at(3);
+		// worker.set(worker, emp);
+		// $scope.workers.sync();
+	}
 	$scope.depatments = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
@@ -104,6 +130,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			}
 		}	
 	});
+
 	$scope.workers.fetch(function() {
 		var view = $scope.workers.view();
 		console.log(view)
@@ -145,8 +172,8 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	$scope.gridOptionsEmp = {
       sortable: true,
       selectable: true,
-      editable : true,
-      dataSource : $scope.workers,
+	  editable: "inline",
+	  dataSource : $scope.workers,
       columns: [{
 	        field: "id",
 	        title: "id",
@@ -185,8 +212,8 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
     };
  	$scope.gridOptionsMan = {
       sortable: true,
-      selectable : true,
-      editable : true,
+	  selectable : true,
+	  editable: "inline",
       dataSource : $scope.depatments,
       columns:  [{
 	        field: "id",
@@ -229,30 +256,9 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		var data = $scope.depatments.data();
 		var lastItem = data[data.length - 1];
 	};
-	$scope.updateEmp = function (empl) {
-		console.log(empl)
-		empl.mgr_id = Number(empl.mgr_id.value)
-		empl.dep_id = Number(empl.dep_id.value)
-		console.log(empl)
-		if (empl === undefined || empl.name  === undefined || empl.dep_id  === undefined || empl.sal  === undefined || empl.birthDate  === undefined || empl.hireDate  === undefined || empl.mgr_id  === undefined) {
-			alert("please enter all fields")
-		}
-		for (var i = 0; i < this.emps.length; i++) {
-			if (this.emps[i].id === $scope.employee.id.id) {
-				index = i
-			}
-		}
-		this.emps[index].birthDate =  empl.birthDate
-		this.emps[index].dep_id =  empl.dep_id
-		this.emps[index].hireDate =  empl.hireDate
-		if (!empl.id) {
-			this.emps[index].id = this.emps[index].id
-		}else{
-			this.emps[index].id =  empl.id			
-		}
-		this.emps[index].mgr_id =  empl.mgr_id
-		this.emps[index].name =  empl.name
-		this.emps[index].sal =  empl.sal
+	$scope.updateEmp = function (data) {
+		console.log(data)
+		$scope.selected = data;
 	};
 	$scope.checkEmp = function () {
 		if($scope.employee.id === null){
