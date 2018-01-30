@@ -5,31 +5,109 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	 hireDate:"1/2/2018",
 	 mgr_id : 2
 	}
+	$scope.dep = {id: 1,
+		name: "s", 
+		head : "ka"
+	}
 	$scope.workers = new kendo.data.DataSource({
+		autoSync: true,
+		batch : true,
 		transport : {
 			read : {
 				url : "../data/emp.json",
 				dataType : "json"
+			},
+			create : {
+				url : "../data/emp.json",
+				dataType : "json"
+			},
+			update : {
+				url : "../data/emp.json",
+				dataType : "json"				
 			}
+		},
+		schema : {
+			data : function (response) {
+				return response
+			},
+			errors : "error",
+			model : {
+				id : "id",
+				fields : {
+					id : {
+						type : "number",
+						validation : {required : true, min : 0}
+					},
+					name : {
+						validation : {required : true}
+					},
+					dep_id : {
+						type : "number",
+						validation : {required : true, min : 0}
+					},
+					sal : {
+						type : "number",
+						validation : {required : true, min : 0}
+					},
+					birthDate : {
+						type : "Date",
+						validation : {required : true}
+					},
+					hireDate : {
+						type : "Date",
+						validation : {required : true}
+					},
+					mgr_id : {
+						type : "number",
+						validation : {required : true, min : 0}
+					}
+				}
+			}
+		},
+		error : function (e) {
+			console.log(e.errors)
 		}
 	});
+
 	$scope.depatments = new kendo.data.DataSource({
+		autoSync: true,
+		batch : true,
 		transport : {
 			read : {
 				url : "../data/dep.json",
 				dataType : "json"
+			},
+			create : {
+				url : "../data/dep.json",
+				dataType : "json"				
+			},
+			update : {
+				url : "../data/dep.json",
+				dataType : "json"				
 			}
-		}
+		},
+		schema : {
+			data : function (response) {
+				return response
+			},
+			errors : "error",
+			model : {
+				id : "id",
+				fields : {
+					name : {
+						validation : {required : true}
+					},
+					head : {
+						validation : {required : true}
+					}
+				}
+			}
+		}	
 	});
-	$scope.depatments.fetch(function() {
-		var view = $scope.depatments.view();
-		console.log(view.length); // displays "1"
-		console.log(view[0].name); // displays "Tea"
+	$scope.workers.fetch(function() {
+		var view = $scope.workers.view();
+		console.log(view)
 	});
-
-	$scope.actions = [
-	{ text: 'Okay' }
-	];
 	$scope.dropDataSourceDep = {
 		data : [{depName : "Department one",
 				 depID : 1},
@@ -67,6 +145,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	$scope.gridOptionsEmp = {
       sortable: true,
       selectable: true,
+      editable : true,
       dataSource : $scope.workers,
       columns: [{
 	        field: "id",
@@ -98,9 +177,16 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	        width: "120px"
 	    }],
     };
+    $scope.handleDelete = function(data, dataItem, columns) {
+		$scope.workers.fetch(function(data) {
+			$scope.workers.remove(data);
+			$scope.workers.sync();
+		});
+    };
  	$scope.gridOptionsMan = {
       sortable: true,
       selectable : true,
+      editable : true,
       dataSource : $scope.depatments,
       columns:  [{
 	        field: "id",
@@ -115,20 +201,6 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	        title: "Head",
 	        width: "120px"
 	    }]	
-	};
-	$scope.deleteEntity = function () {
-		if($scope.employee.id === null){
-			alert('Please Select An Employee')
-			return
-		}
-		for (var i = 0; i < this.emps.length; i++) {
-			if (this.emps[i].id === $scope.employee.id.id) {
-				index = i
-			}
-		}
-		if(confirm("are you sure you want to delete employee " + $scope.employee.id.name +" ?"))
-		$scope.emps.splice(index,1)
-	this.cope.checked = false
 	};
 	$scope.deleteManagment = function () {
 		console.log(this.cope.checked)
@@ -147,38 +219,15 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 
 	};
 	$scope.addEmp = function (emp) {
-		emp.dep_id = Number(emp.dep_id.depID)
-		emp.mgr_id = Number(emp.mgr_id.mgrID)
-		if (emp === undefined || emp.name  === undefined || emp.dep_id  === undefined || emp.sal  === undefined || emp.birthDate  === undefined || emp.hireDate  === undefined || emp.mgr_id  === undefined) {
-			console.log("in if")
-			alert("please enter all fields")
-		}
-		else{
-			if(emp.id === undefined){
-				console.log(emp.dep_id, emp.mgr_id)
-				emp.id === $scope.emps.length
-			}
-			employyes = retrueve.data()
-			console.log("data here before data: ",retrueve, "    after    ",employyes	)
-
-			employyes.push(emp)
-			console.log("data here after push: ",employyes	)
-		}
+		$scope.workers.add(emp);
+		var data = $scope.workers.data();
+		var lastItem = data[data.length - 1];
 	};
 	$scope.addDep = function (dep) {
-		console.log(dep)
-
-		if (dep === undefined ||  dep.name === undefined || dep.head === undefined) {
-
-			alert("please enter all fields")
-			return
-		}else{
-			if (dep.id === undefined) {
-				dep.id = $scope.deps.length
-			}
-			$scope.deps.push(dep)
-
-		}
+		console.log("function wworks", dep)
+		$scope.depatments.add(dep);
+		var data = $scope.depatments.data();
+		var lastItem = data[data.length - 1];
 	};
 	$scope.updateEmp = function (empl) {
 		console.log(empl)
