@@ -30,6 +30,10 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			update : {
 				url : "../data/emp.json",
 				dataType : "json"				
+			},
+			destroy : {
+				url : "../data/emp.json",
+				dataType : "json"				
 			}
 		},
 		schema : {
@@ -75,11 +79,24 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		}
 	});
     $scope.onChange = function(data){
-		console.log(data);
 		$scope.employee.selected = data;
 		$scope.emp = data;
+
 	  };
+	 $scope.deleteFieldEmp = function(){
+		 emp = $scope.employee.selected;
+		 $scope.workers.remove(emp)
+
+		console.log($scope.workers.data());
+		$scope.employee.selected = false;
+	 }
+	 $scope.deleteManagment = function(){
+		console.log("works") 
+		var department = $scope.managment.selectedMan
+		 $scope.depatments.remove(department)
+	 }
 	  $scope.onChangeMan = function(data){
+		console.log(data);
 		$scope.managment.selectedMan = data;
 		$scope.dep = data;
 	  }
@@ -89,9 +106,9 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 			if(item.id === emp.id){
 				$scope.workers[index] = emp
 			}
-		})
-		console.log($scope.workers.data())
-		$scope.employee.selected = false
+		});
+		console.log($scope.workers.data());
+		$scope.employee.selected = false;
 		// var worker = $scope.workers.at(3);
 		// worker.set(worker, emp);
 		// $scope.workers.sync();
@@ -119,6 +136,10 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 				dataType : "json"				
 			},
 			update : {
+				url : "../data/dep.json",
+				dataType : "json"				
+			},
+			destroy : {
 				url : "../data/dep.json",
 				dataType : "json"				
 			}
@@ -215,7 +236,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	        width: "120px"
 	    }],
     };
-    $scope.handleDelete = function(data, dataItem, columns) {
+    $scope.deleteEmployee = function(data, dataItem, columns) {
 		$scope.workers.fetch(function(data) {
 			$scope.workers.remove(data);
 			$scope.workers.sync();
@@ -240,22 +261,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 	        width: "120px"
 	    }]	
 	};
-	$scope.deleteManagment = function () {
-		console.log(this.cope.checked)
-		if($scope.managment.id === null){
-			alert('Please Select An Department')
-			return
-		}		
-		for (var i = 0; i < this.deps.length; i++) {
-			if (this.deps[i].id === $scope.managment.id.id) {
-				index = i
-			}
-		}
-		if(confirm("are you sure you want to delete Department " + $scope.managment.id.name +" ?"))
-		$scope.deps.splice(index,1)
-	this.cope.checked = false
 
-	};
 	$scope.addEmp = function (emp) {
 		$scope.workers.add(emp);
 		var data = $scope.workers.data();
@@ -271,20 +277,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
 		console.log(data)
 		$scope.selected = data;
 	};
-	$scope.checkEmp = function () {
-		if($scope.employee.id === null){
-			alert('Please Select')
-			this.employee.newUpdate = false
-			return
-		}		
-	};
-	$scope.checkMan = function () {
-		if($scope.managment.id === null){
-			alert('Please Select')
-			this.managment.newUpdate = false
-			return
-		}		
-	};
+
 
 	$scope.sortCollumn = "name";
 	$scope.reverseSort = false;

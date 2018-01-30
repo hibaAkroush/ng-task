@@ -4,6 +4,7 @@
 <center ng-init="showFilter=false; newEntity=false; cope.checked=false; managment.selectedMan=false">
 <button ng-click='newEntity=!newEntity'>Add</button>
 <button ng-click= "deleteManagment()">Delete</button>
+<button ng-click="click.newUpdateMan = !click.newUpdateMan">Update</button>
 <button ng-click="showFilter = !showFilter">filter</button>
 </center>
 <br>
@@ -18,7 +19,7 @@ k-options="gridOptionsMan"
 k-selectable = "true"
 k-on-change="onChangeMan(data)">
 </kendo-grid>
-<div ng-show=" managment.selectedMan">
+<div ng-show=" managment.selectedMan && click.newUpdateMan">
 <td><h5>type here</h5><button ng-click = "updateMan(dep)">Update</button></td>
   <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
   <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
