@@ -1,5 +1,21 @@
-myApp.controller('myCtrl',function ($scope, $http, $mdDialog) {
-
+myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
+	$scope.showDeleteToast = function() {
+		if($scope.employee.selected){
+			$mdToast.show({
+			  hideDelay   : false,
+			  position : "top right",
+			  templateUrl : './toast.html'
+			});
+		}else{
+			var message = "Please Select An Employee!"
+			$mdToast.show($mdToast.simple({
+			  hideDelay: 1000,
+			  position: 'top right',
+			  content: message,
+			  toastClass: 'error'
+			}))
+	  }
+	}
     $scope.onChange = function(data){
 		console.log(data)
 		$scope.employee.selected = data;

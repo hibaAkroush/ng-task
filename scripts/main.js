@@ -1,6 +1,7 @@
-var myApp = angular.module('myApp', [ 'ui.router', 'ngMaterial',  "kendo.directives"])
+var myApp = angular.module('myApp', [ 'ui.router', 'ngMaterial',  "kendo.directives","ngMessages",'material.svgAssetsCache'])
+.constant("$MD_THEME_CSS","");
+myApp.config(function($stateProvider, $mdThemingProvider){
 
-myApp.config(function($stateProvider){
   var managment = {
     name: 'man',
     url: '/',

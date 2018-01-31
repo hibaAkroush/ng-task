@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="node_modules/angular-material/angular-material.css">
 <link rel="stylesheet" type="text/css" href="kendo-ui/css/web/kendo.common.css">
 <link rel="stylesheet" type="text/css" href="kendo-ui/css/web/kendo.rtl.min.css">
 <link rel="stylesheet" type="text/css" href="kendo-ui/css/web/kendo.default.min.css">
@@ -12,18 +13,24 @@
 <script src="//kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
 </head>
 <body ng-app = "myApp" ng-controller="myCtrl">
+
+<md-content>
 <ul class="navBar">
   <li><a ui-sref="man">Managment</a></li>
   <li><a ui-sref="emp">Employees</a></li>
 </ul>
 
 <br>
-
+<md-button></md-button>
 <ui-view></ui-view>
+</md-content>
+
 <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.js"></script>
 <script src="node_modules/angular-animate/angular-animate.js"></script>
 <script src="node_modules/angular-aria/angular-aria.js"></script>
 <script src="node_modules/angular-material/angular-material.js"></script>
+<script src="node_modules/angular-messages/angular-messages.js"></script>
+<script src="node_modules/svg-assets-cache/svg-assets-cache.js"></script>
 <script src="scripts/main.js"></script>
 <script src="scripts/controller.js"></script>
 </body>

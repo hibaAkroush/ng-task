@@ -2,9 +2,17 @@
 <br>
   
 <center ng-init="showFilter=false; newEntity=false; cope.checked=false; managment.selectedMan=false">
-<button ng-click='newEntity=!newEntity'>Add</button>
-<button ng-click= "deleteManagment()">Delete</button>
-<button ng-click="click.newUpdateMan = !click.newUpdateMan">Update</button>
+<button ng-click='newEntity=!newEntity'>
+  <i class="fa fa-plus" aria-hidden="true"></i>
+  Add
+</button>
+<button ng-click= "deleteManagment()">
+    <i class="fa fa-trash-o fa-lg"></i>
+    Delete
+  </button>
+<button ng-click="click.newUpdateMan = !click.newUpdateMan">
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+    Update</button>
 </center>
 <br>
 
