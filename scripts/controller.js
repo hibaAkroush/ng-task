@@ -1,4 +1,4 @@
-myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
+myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDataService) {
 	$scope.showDeleteToast = function() {
 		if($scope.employee.selected){
 			$mdToast.show({
@@ -10,13 +10,33 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 		}else{
 			var message = "Please Select An Employee!"
 			$mdToast.show($mdToast.simple({
-			  hideDelay: 1000,
+			  hideDelay: 500,
 			  position: 'top right',
 			  content: message,
 			  toastClass: 'error'
 			}))
 	  }
 	}
+	
+	$scope.showDeleteToastMan = function() {
+		
+		if($scope.managment.selectedMan){
+			$mdToast.show({
+			  hideDelay   : false,
+			  position : "top right",
+			  templateUrl : './toastMan.html',
+			  controller  : 'toastCtrl'
+			});
+		}else{
+			var message = "Please Select A Department!"
+			$mdToast.show($mdToast.simple({
+			  hideDelay: 500,
+			  position: 'top right',
+			  content: message,
+			  toastClass: 'error'
+			}))
+	  }
+	}	
 	$scope.confirmDelete = function(){
 		console.log("confirmed")
 	}
@@ -24,6 +44,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 		
 		console.log(data)
 		$scope.employee.selected = data;
+		sharedDataService.employee = $scope.employee;
 		$scope.emp = data;
 		console.log("change works and selected is",$scope.employee.selected )
 	  };
@@ -117,7 +138,9 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 	  $scope.onChangeMan = function(data){
 		console.log(data);
 		$scope.managment.selectedMan = data;
+		sharedDataService.managment = $scope.managment;
 		$scope.dep = data;
+		console.log(sharedDataService.managment)
 	  }
 	$scope.update = function(emp){
 		emp.dep_id = emp.dep_id.depID;
@@ -184,11 +207,12 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 			}
 		}	
 	});
-
+	sharedDataService.depatments = $scope.depatments
 	$scope.workers.fetch(function() {
 		var view = $scope.workers.view();
 		console.log(view)
 	});
+	sharedDataService.workers  = $scope.workers;
 	$scope.dropDataSourceDep = {
 		data : [{depName : "Department one",
 				 depID : 1},
@@ -267,12 +291,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 	        width: "120px"
 	    }],
     };
-    $scope.deleteEmployee = function(data, dataItem, columns) {
-		$scope.workers.fetch(function(data) {
-			$scope.workers.remove(data);
-			$scope.workers.sync();
-		});
-    };
+
  	$scope.gridOptionsMan = {
       sortable: true,
 	  selectable : true,
