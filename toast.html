@@ -1,10 +1,9 @@
-<md-toast class="deleteToast">
-    <span>Are You Sure You Want To Delete?</span>
-    <md-button ng-click="confirmDelete($event)">
-        Yes
-    </md-button>
-
-    <md-button ng-click="closeToast()">
-        Close
-    </md-button>
+<md-toast>
+        <span class="md-toast-text" flex>Are You Shure?</span>
+        <md-button class="md-highlight" ng-click="deleteFieldEmp($event)">
+          Yes
+        </md-button>
+        <md-button ng-click="closeToast()">
+          Close
+        </md-button>
 </md-toast>

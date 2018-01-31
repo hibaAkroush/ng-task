@@ -4,7 +4,8 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 			$mdToast.show({
 			  hideDelay   : false,
 			  position : "top right",
-			  templateUrl : './toast.html'
+			  templateUrl : './toast.html',
+			  controller  : 'toastCtrl'
 			});
 		}else{
 			var message = "Please Select An Employee!"
@@ -16,11 +17,15 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 			}))
 	  }
 	}
+	$scope.confirmDelete = function(){
+		console.log("confirmed")
+	}
     $scope.onChange = function(data){
+		
 		console.log(data)
 		$scope.employee.selected = data;
 		$scope.emp = data;
-
+		console.log("change works and selected is",$scope.employee.selected )
 	  };
 	$scope.emp = {id: 1,
 	 name: "s", dep_id:{depID :  2},
@@ -103,13 +108,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast) {
 		}
 	});
 
-	 $scope.deleteFieldEmp = function(){
-		 emp = $scope.employee.selected;
-		 $scope.workers.remove(emp)
 
-		console.log($scope.workers.data());
-		$scope.employee.selected = false;
-	 }
 	 $scope.deleteManagment = function(){
 		console.log("works") 
 		var department = $scope.managment.selectedMan
