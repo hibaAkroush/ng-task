@@ -72,3 +72,10 @@ center button {
     background-color: rgb(95, 93, 100);
     color: white;
 }
+input.ng-invalid.ng-touched{
+    border: 2px solid red;
+}
+
+h5 {
+     color: #ff6600; transition: .5s; -moz-transition: .5s; -webkit-transition: .5s; -o-transition: .5s; font-family: 'Muli', sans-serif;
+     }

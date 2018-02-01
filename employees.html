@@ -1,10 +1,10 @@
-
-<center ng-init="showFilter=false; newEntity=false; employee.selected=false">
-<button ng-click='newEntity=!newEntity'>
+<div id="employees">
+<center ng-init="showFilter=false; click.newEntity=false; employee.selected=false">
+<button ng-click='click.newEntity=!click.newEntity; checkIfUpdate()'>
 <i class="fa fa-plus" aria-hidden="true"></i>
   Add
 </button>
-<button ng-click="click.newUpdateEmp = !click.newUpdateEmp; updateToast()">
+<button ng-click="click.newUpdateEmp = !click.newUpdateEmp; updateToast(); checkIfAdd()">
   <i class="fa fa-refresh" aria-hidden="true"></i>
   Update
 </button>
@@ -14,60 +14,68 @@
 </button>
 </center>
 
-
-<div ng-show="newEntity">
-    <td><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
-    <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
-    <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>
+<form name="addForm" novalidate>
+<div ng-show="click.newEntity">
+    <h5>Add</h5>
+    <p ng-show="addForm.name.$invalid && !addForm.name.$pristine" style="color: red">Enter a valid name.</p>
+    <td><button  ng-click="addEmp(emp); click.newEntity=false">save</button></td>
+    <td><input kendo-numerictextbox style="width: 10%;" ng-model="emp.id" type="number" min="0" name="id" ng-required="true"></td>
+    <td><input  class="k-textbox" ng-model="emp.name" style="width: 11%;"  name="name" type="text" ng-required="true" type="text" ng-minlength="3" ng-maxlength="8"></td>
     <td>
-      <select 
+      <select style="width: 18%;"
       kendo-dropdownlist
       k-ng-model="emp.dep_id"
       k-data-value-field="'depID'"
       k-data-text-field="'depName'"
       k-data-source="dropDataSourceDep"
-      required></select>
+      ng-required="true"></select>
     </td>
-    <td><input class="k-textbox" ng-model="emp.sal" type="number" required min="0" ></td>
-    <td><input kendo-date-picker ng-model="emp.birthDate" required></td>   
-    <td><input kendo-date-picker ng-model="emp.hireDate" required></td>
+    <td><input class="k-textbox" style="width: 11%;" ng-model="emp.sal" type="number" ng-required="true" min="0" ></td>
+    <td><input kendo-date-picker ng-model="emp.birthDate" ng-required="true" style="width: 15%;"></td>   
+    <td><input kendo-date-picker ng-model="emp.hireDate" ng-required="true" style="width: 15%;"></td>
     <td>
-      <select 
+      <select  style="width: 11%;"
       kendo-dropdownlist
       k-ng-model="emp.mgr_id"
       k-data-value-field="'mgrID'"
       k-data-text-field="'mgrName'"
       k-data-source="dropDataSourceMgr"
-      required></select>
+      ng-required="true"></select>
     </td> 
   </div>
-
+</form> 
+<form name="updateForm" novalidate>
 <div ng-show="employee.selected && click.newUpdateEmp">
-    <td>><button  ng-click="update(emplo)">save</button></td>
-    <td><input kendo-numerictextbox ng-model="emplo.id" type="number"  min="0"></td>
-    <td><input  class="k-textbox" ng-model="emplo.name" name="uName" type="text" required=""></td>
+    <h5>Update</h5>
+    <p ng-show="updateForm.name.$invalid && !updateForm.name.$pristine" style="color: red">Enter a valid name.</p>    
+    <td><button ng-disabled="updateForm.$invalid" ng-click="update(emplo)" type="submit" value="send">save</button></td>
+    <td><input style="width: 11%;" kendo-numerictextbox ng-model="emplo.id" type="number"  min="0" name="id" ng-required="true"></td>
+    <td><input style="width: 11%;" class="k-textbox" ng-model="emplo.name" name="name" type="text" ng-required="true" type="text" ng-minlength="3" ng-maxlength="8"></td>
     <td>
-      <select 
+      <select style="width: 17%;"
       kendo-dropdownlist
       k-ng-model="emplo.dep_id"
       k-data-value-field="'depID'"
       k-data-text-field="'depName'"
       k-data-source="dropDataSourceDep"
-      required></select>
+      ng-required="true"></select>
     </td>
-    <td><input class="k-textbox" ng-model="emplo.sal" type="number" required min="0" ></td>
-    <td><input kendo-date-picker ng-model="emplo.birthDate" required></td>   
-    <td><input kendo-date-picker ng-model="emplo.hireDate" required></td>
+    <td><input style="width: 11%;" class="k-textbox" ng-model="emplo.sal" type="number" ng-required="true" min="0" ></td>
+    <td><input style="width: 11%;" kendo-date-picker ng-model="emplo.birthDate" ng-required="true"></td>   
+    <td><input style="width: 11%;" kendo-date-picker ng-model="emplo.hireDate" ng-required="true"></td>
     <td>
-      <select 
+      <select style="width: 11%;"
       kendo-dropdownlist
       k-ng-model="emplo.mgr_id"
       k-data-value-field="'mgrID'"
       k-data-text-field="'mgrName'"
       k-data-source="dropDataSourceMgr"
-      required></select>
+      ng-required="true"></select>
     </td>
   </div>
+
+  
+</form>
 <kendo-grid 
 k-options="gridOptionsEmp"
 k-on-change="onChange(data)"
@@ -75,4 +83,4 @@ k-selectable="true">
 </kendo-grid>
 
 
-
+</div>

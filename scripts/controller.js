@@ -64,17 +64,6 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 		console.log("change works and selected is",$scope.employee.selected )
 	};
 
-	$scope.emp = {id: 1,
-	 name: "s", dep_id:{depID :  2},
-	 sal: 1, birthDate: "1/2/2018",
-	 hireDate:"1/2/2018",
-	 mgr_id : {mgrID:2}
-	};
-
-	$scope.dep = {id: 1,
-		name: "s", 
-		head : "ka"
-	};
 
 	$scope.empl = {id: 1,
 		name: "change", dep_id: 2,
@@ -156,14 +145,16 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 	};
 
 	$scope.update = function(emplo){
-		console.log(emplo)
+		console.log("inside update employeee",emplo)
 		if(emplo === undefined || emplo.id === undefined || emplo.name === undefined || emplo.dep_id=== undefined || emplo.sal=== undefined || emplo.birthDate === undefined || emplo.hireDate === undefined || emplo.mgr_id=== undefined){
 			console.log("one of these values is null :  ",emplo)
 			$scope.errorToast("Please Enter All Fields!")
 			$scope.employee.selected = false;
 			return;
 		}else{
+			console.log("inside else", $scope.workers.data(), $scope.employee.selected )
 			for (let index = 0; index < $scope.workers.data().length; index++) {
+				console.log("inside for", $scope.workers.data()[index].id, $scope.employee.selected.id )
 				if($scope.workers.data()[index].id === $scope.employee.selected.id){
 					console.log($scope.workers.data()[index].id , $scope.employee.selected.id)
 					console.log("found",$scope.workers.data()[index], emplo)
@@ -172,10 +163,11 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 					$scope.workers.data()[index].birthDate = emplo.birthDate
 					$scope.workers.data()[index].sal = emplo.sal
 					$scope.workers.data()[index].hireDate = emplo.hireDate
-					$scope.workers.data()[index].mgr_id.mgrID = emplo.mgr_id
-					$scope.workers.data()[index].dep_id.depID = emplo.dep_id
+					$scope.workers.data()[index].mgr_id = emplo.mgr_id.mgrID 
+					$scope.workers.data()[index].dep_id = emplo.dep_id.depID
+					break;
 				}
-				break;				
+				
 			}
 
 			$scope.employee.selected = false;
@@ -184,6 +176,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 	};
 
 	$scope.updateMan = function(depa){
+		console.log(depa)
 		if(depa.id === undefined || depa.name === undefined || depa.head===undefined){
 			console.log("inside if")
 			$scope.errorToast("Please Enter All Fields!")
@@ -462,9 +455,20 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 	        width: "120px"
 	    }]	
 	};
-
+	$scope.checkIfUpdate = function(){
+		if($scope.click.newUpdateEmp){
+			$scope.click.newUpdateEmp = false;
+		}
+	}
+	$scope.checkIfAdd  =  function(){
+		console.log($scope.click.newEntity)
+		if($scope.click.newEntity){
+			$scope.click.newEntity = false;
+		}
+	}
+	
 	$scope.addEmp = function (emp) {
-		console.log(emp)
+		
 		if(emp.id === undefined || emp.name === undefined || emp.dep_id=== undefined || emp.sal=== undefined || emp.birthDate=== undefined || emp.hireDate=== undefined || emp.mgr_id=== undefined){
 		$scope.errorToast("Please Fill All Fields!")
 		}else{
@@ -479,7 +483,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 	};
 	$scope.addDep = function (dep) {
 		console.log("add department wworks", dep, dep.name === undefined)
-		if(dep.id === undefined || dep.name === undefined || dep.head ===undefined){
+		if(dep.id === undefined || dep.name === undefined || dep.head === undefined){
 		console.log("detected")
 		$scope.errorToast("Please Enter All Fields!")
 		}else{
