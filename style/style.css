@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color:  #4CAF50;
+    background-color:  rgb(94, 76, 175);
 }
 
 .navBar li {
@@ -40,7 +40,7 @@ tr:nth-child(even) {
 }
 
 center button {
-    background-color: #4CAF50; /* Green */
+    background-color: rgb(94, 76, 175); /* Green */
     border: none;
     color: white;
     padding: 20px;
@@ -60,5 +60,15 @@ center button {
 
 .error{
     background-color: red;
+    color: white;
+}
+
+.success{
+    background-color: green;
+    color: white;
+}
+
+.normal{
+    background-color: rgb(95, 93, 100);
     color: white;
 }

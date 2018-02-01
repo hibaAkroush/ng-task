@@ -1,11 +1,10 @@
-<br>
-<br>
+
 <center ng-init="showFilter=false; newEntity=false; employee.selected=false">
 <button ng-click='newEntity=!newEntity'>
 <i class="fa fa-plus" aria-hidden="true"></i>
   Add
 </button>
-<button ng-click="click.newUpdateEmp = !click.newUpdateEmp">
+<button ng-click="click.newUpdateEmp = !click.newUpdateEmp; updateToast()">
   <i class="fa fa-refresh" aria-hidden="true"></i>
   Update
 </button>
@@ -14,10 +13,10 @@
   Delete
 </button>
 </center>
-<br>
+
 
 <div ng-show="newEntity">
-    <td><h5>type here</h5><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
+    <td><button  ng-click="addEmp(emp); newEntity=false">save</button></td>
     <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
     <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>
     <td>
@@ -42,38 +41,38 @@
       required></select>
     </td> 
   </div>
-<br>
 
+<div ng-show="employee.selected && click.newUpdateEmp">
+    <td>><button  ng-click="update(emplo)">save</button></td>
+    <td><input kendo-numerictextbox ng-model="emplo.id" type="number"  min="0"></td>
+    <td><input  class="k-textbox" ng-model="emplo.name" name="uName" type="text" required=""></td>
+    <td>
+      <select 
+      kendo-dropdownlist
+      k-ng-model="emplo.dep_id"
+      k-data-value-field="'depID'"
+      k-data-text-field="'depName'"
+      k-data-source="dropDataSourceDep"
+      required></select>
+    </td>
+    <td><input class="k-textbox" ng-model="emplo.sal" type="number" required min="0" ></td>
+    <td><input kendo-date-picker ng-model="emplo.birthDate" required></td>   
+    <td><input kendo-date-picker ng-model="emplo.hireDate" required></td>
+    <td>
+      <select 
+      kendo-dropdownlist
+      k-ng-model="emplo.mgr_id"
+      k-data-value-field="'mgrID'"
+      k-data-text-field="'mgrName'"
+      k-data-source="dropDataSourceMgr"
+      required></select>
+    </td>
+  </div>
 <kendo-grid 
 k-options="gridOptionsEmp"
 k-on-change="onChange(data)"
 k-selectable="true">
 </kendo-grid>
-<div ng-show="employee.selected && click.newUpdateEmp">
-  <td><h5>type here</h5><button  ng-click="update(emp)">save</button></td>
-  <td><input kendo-numerictextbox ng-model="emp.id" type="number"  min="0"></td>
-  <td><input  class="k-textbox" ng-model="emp.name" name="uName" type="text" required=""></td>
-  <td>
-    <select 
-    kendo-dropdownlist
-    k-ng-model="emp.dep_id"
-    k-data-value-field="'depID'"
-    k-data-text-field="'depName'"
-    k-data-source="dropDataSourceDep"
-    required></select>
-  </td>
-  <td><input class="k-textbox" ng-model="emp.sal" type="number" required min="0" ></td>
-  <td><input kendo-date-picker ng-model="emp.birthDate" required></td>   
-  <td><input kendo-date-picker ng-model="emp.hireDate" required></td>
-  <td>
-    <select 
-    kendo-dropdownlist
-    k-ng-model="emp.mgr_id"
-    k-data-value-field="'mgrID'"
-    k-data-text-field="'mgrName'"
-    k-data-source="dropDataSourceMgr"
-    required></select>
-  </td>
-</div>
+
 
 

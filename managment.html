@@ -10,35 +10,35 @@
     <i class="fa fa-trash-o fa-lg"></i>
     Delete
   </button>
-<button ng-click="click.newUpdateMan = !click.newUpdateMan">
+<button ng-click="click.newUpdateMan = !click.newUpdateMan; updatToastMan()">
     <i class="fa fa-refresh" aria-hidden="true"></i>
     Update</button>
 </center>
-<br>
 
-<br>
+<div ng-show="newEntity">
+    <td><h5>type here</h5><button ng-click="addDep(dep); newEntity=false">save</button></td>
+    <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
+    <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
+    <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
+</div> 
 
+<div ng-show=" managment.selectedMan && click.newUpdateMan">
+      <td><h5>type here</h5><button ng-click = "updateMan(depa)">Update</button></td>
+        <td><input kendo-numerictextbox ng-model="depa.id" type="number"  min="0"></td>
+        <td><input  class="k-textbox" ng-model="depa.name" type="text" required></td>
+        <td><input  class="k-textbox" ng-model="depa.head" type="text" required></td>
+        
+</div>
 <kendo-grid 
 k-options="gridOptionsMan"
 k-selectable = "true"
 k-on-change="onChangeMan(data)">
 </kendo-grid>
-<div ng-show=" managment.selectedMan && click.newUpdateMan">
-<td><h5>type here</h5><button ng-click = "updateMan(dep)">Update</button></td>
-  <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
-  <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
-  <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
-  
-</div>
 
 
 
-<div ng-show="newEntity">
-  <td><h5>type here</h5><button ng-click="addDep(dep); newEntity=false">save</button></td>
-  <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0"></td>
-  <td><input  class="k-textbox" ng-model="dep.name" type="text" required></td>
-  <td><input  class="k-textbox" ng-model="dep.head" type="text" required></td>
-</div>
+
+
 
 
 

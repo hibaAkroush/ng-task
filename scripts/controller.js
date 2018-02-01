@@ -1,63 +1,81 @@
 myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDataService) {
+	$scope.click = { 
+		newUpdateEmp : "",
+		newUpdateMan : ""
+	};
+	
 	$scope.showDeleteToast = function() {
 		if($scope.employee.selected){
 			$mdToast.show({
 			  hideDelay   : false,
 			  position : "top right",
 			  templateUrl : './toast.html',
-			  controller  : 'toastCtrl'
+			  controller  : 'toastCtrl',
+			  toastClass : "normal"
 			});
 		}else{
-			var message = "Please Select An Employee!"
-			$mdToast.show($mdToast.simple({
-			  hideDelay: 500,
-			  position: 'top right',
-			  content: message,
-			  toastClass: 'error'
-			}))
-	  }
+			$scope.errorToast("Please Select An Employee!")
+
+	    }
+	};
+
+	$scope.errorToast = function(message){
+		$mdToast.show($mdToast.simple({
+			hideDelay: 500,
+			position: 'top right',
+			content: message,
+			toastClass: 'error'
+		  }))
+	};
+	$scope.updateToast = function(){
+		console.log("inside update", $scope.employee.selected)
+		if(!$scope.employee.selected){
+			$scope.errorToast("Please Select An Employee!");
+			$scope.click.newUpdateEmp = false;
+			console.log("inside update", $scope.employee.selected);
+		}
+	};
+	$scope.updatToastMan = function(){
+		if(!$scope.managment.selectedMan){
+			$scope.errorToast("Please Select A Department!");
+			$scope.click.newUpdateMan = false;
+		}
 	}
-	
 	$scope.showDeleteToastMan = function() {
-		
 		if($scope.managment.selectedMan){
 			$mdToast.show({
 			  hideDelay   : false,
 			  position : "top right",
 			  templateUrl : './toastMan.html',
-			  controller  : 'toastCtrl'
+			  controller  : 'toastCtrl',
+			  toastClass : "normal"
 			});
 		}else{
-			var message = "Please Select A Department!"
-			$mdToast.show($mdToast.simple({
-			  hideDelay: 500,
-			  position: 'top right',
-			  content: message,
-			  toastClass: 'error'
-			}))
+			$scope.errorToast("Please Select A Department!")
+
 	  }
-	}	
-	$scope.confirmDelete = function(){
-		console.log("confirmed")
-	}
+	};
+
     $scope.onChange = function(data){
-		
 		console.log(data)
 		$scope.employee.selected = data;
 		sharedDataService.employee = $scope.employee;
 		$scope.emp = data;
 		console.log("change works and selected is",$scope.employee.selected )
-	  };
+	};
+
 	$scope.emp = {id: 1,
 	 name: "s", dep_id:{depID :  2},
 	 sal: 1, birthDate: "1/2/2018",
 	 hireDate:"1/2/2018",
 	 mgr_id : {mgrID:2}
 	};
+
 	$scope.dep = {id: 1,
 		name: "s", 
 		head : "ka"
 	};
+
 	$scope.empl = {id: 1,
 		name: "change", dep_id: 2,
 		sal: 1, birthDate: "1/2/2018",
@@ -128,45 +146,65 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 			console.log(e.errors);
 		}
 	});
-
-
-	 $scope.deleteManagment = function(){
-		console.log("works") 
-		var department = $scope.managment.selectedMan
-		 $scope.depatments.remove(department)
-	 }
-	  $scope.onChangeMan = function(data){
+	  
+	$scope.onChangeMan = function(data){
 		console.log(data);
 		$scope.managment.selectedMan = data;
 		sharedDataService.managment = $scope.managment;
 		$scope.dep = data;
-		console.log(sharedDataService.managment)
-	  }
-	$scope.update = function(emp){
-		emp.dep_id = emp.dep_id.depID;
-		emp.mgr_id = emp.mgr_id.mgrID;
-		console.log("update func",emp)
-		$scope.workers.data().map(function(item, index){
-			if(item.id === emp.id){
-				$scope.workers[index] = emp
+		console.log(sharedDataService.managment) 
+	};
+
+	$scope.update = function(emplo){
+		console.log(emplo)
+		if(emplo === undefined || emplo.id === undefined || emplo.name === undefined || emplo.dep_id=== undefined || emplo.sal=== undefined || emplo.birthDate === undefined || emplo.hireDate === undefined || emplo.mgr_id=== undefined){
+			console.log("one of these values is null :  ",emplo)
+			$scope.errorToast("Please Enter All Fields!")
+			$scope.employee.selected = false;
+			return;
+		}else{
+			for (let index = 0; index < $scope.workers.data().length; index++) {
+				if($scope.workers.data()[index].id === $scope.employee.selected.id){
+					console.log($scope.workers.data()[index].id , $scope.employee.selected.id)
+					console.log("found",$scope.workers.data()[index], emplo)
+					$scope.workers.data()[index].id = emplo.id
+					$scope.workers.data()[index].name = emplo.name					
+					$scope.workers.data()[index].birthDate = emplo.birthDate
+					$scope.workers.data()[index].sal = emplo.sal
+					$scope.workers.data()[index].hireDate = emplo.hireDate
+					$scope.workers.data()[index].mgr_id.mgrID = emplo.mgr_id
+					$scope.workers.data()[index].dep_id.depID = emplo.dep_id
+				}
+				break;				
 			}
-		});
-		console.log($scope.workers.data());
-		$scope.employee.selected = false;
-		// var worker = $scope.workers.at(3);
-		// worker.set(worker, emp);
-		// $scope.workers.sync();
-	}
-	$scope.updateMan = function(dep){
-		console.log("works?")
-		$scope.depatments.data().map(function(item, index){
-			if(item.id === dep.id){
-				$scope.depatments[index] = dep
-			}
-		})
-		console.log($scope.workers.data())
-		$scope.managment.selectedMan = false
-	}
+
+			$scope.employee.selected = false;
+			$scope.successToast("Employee Updated!")
+		}
+	};
+
+	$scope.updateMan = function(depa){
+		if(depa.id === undefined || depa.name === undefined || depa.head===undefined){
+			console.log("inside if")
+			$scope.errorToast("Please Enter All Fields!")
+			$scope.managment.selectedMan = false;
+		}else{
+			console.log($scope.depatments.data())
+			$scope.depatments.data().map(function(item, index){
+				console.log(item)
+				if(item.id === $scope.managment.selectedMan.id){
+					console.log("found!",item ,depa )
+					item.id = depa.id
+					item.name = depa.name
+					item.head = depa.head
+
+				}
+			})	
+			$scope.managment.selectedMan = false;
+			$scope.successToast("Department Updated!");
+		}
+	};
+
 	$scope.depatments = new kendo.data.DataSource({
 		autoSync: true,
 		batch : true,
@@ -207,11 +245,13 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 			}
 		}	
 	});
+
 	sharedDataService.depatments = $scope.depatments
 	$scope.workers.fetch(function() {
 		var view = $scope.workers.view();
 		console.log(view)
 	});
+
 	sharedDataService.workers  = $scope.workers;
 	$scope.dropDataSourceDep = {
 		data : [{depName : "Department one",
@@ -226,6 +266,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 				 depID : 4
 				 }]
 	};
+
 	$scope.dropDataSourceMgr = {
 		data : [{mgrName : "husam",
 				 mgrID : 1},
@@ -239,6 +280,7 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 				 mgrID : 4
 				 }]
 	};
+
 	$scope.employee = {
         id: null,
         newUpdate : false
@@ -246,49 +288,124 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
      $scope.managment = {
         id: null,
         newUpdate : false
-     };
+	 };
+	 console.log($scope.dropDataSourceDep)
+	$scope.depFilter = function(element) {
+		element.kendoDropDownList({
+			dataSource : $scope.dropDataSourceDep.data.map(function(item,index){
+				return item.depID;
+			})
+          });
+	};
+	$scope.mgrFilter = function(element) {
+		element.kendoDropDownList({
+			dataSource : $scope.dropDataSourceMgr.data.map(function(item,index){
+				return item.mgrID;
+			})
+          });
+	};
 	$scope.gridOptionsEmp = {
       sortable: true,
       selectable: true,
 	  editable: "inline",
 	  pageable: true,
-	  filterable: {mode : "row"},
+	  filterable : true,
 	  dataSource : $scope.workers,
       columns: [{
 	        field: "id",
 	        title: "id",
 			width: "120px",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  startswith: "Starts with",
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		  	},
 			headerTemplate: 'ID <span class="k-icon k-i-kpi"></span>'
 	        },{
 			field: "name",
 			headerTemplate: 'Name <span class="k-icon k-i-kpi"></span>',
-	        title: "Name",
+			title: "Name",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  startswith: "Starts with",
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
 	        width: "120px"
 	        },{
 			field: "dep_id",
+			valuePrimitive: true,
 			headerTemplate: 'Department ID <span class="k-icon k-i-kpi"></span>',
 	        title: "Department Id",
-	        width: "120px"
+			width: "120px",
+			filterable: {
+				extra : false,
+				ui : $scope.depFilter
+			}
 	        },{
 			field: "sal",
 			headerTemplate: 'Salary <span class="k-icon k-i-kpi"></span>',
-	        title: "Salary",
+			title: "Salary",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
 	        width: "120px"
 	    	},{
 			field: "birthDate",
 			headerTemplate: 'Birth Date <span class="k-icon k-i-kpi"></span>',
 	        title: "Birth Date",
-	        width: "120px"
+			width: "120px",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  startswith: "Starts with",
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
+			format: "{0:dd/MM/yyyy}"
 	        },{
 	        field: "hireDate",
 			title: "Hire Date",
 			headerTemplate: 'Hire Date <span class="k-icon k-i-kpi"></span>',
-	        width: "120px"
+			width: "120px",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  startswith: "Starts with",
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
+			format: "{0:dd/MM/yyyy}"
 	    	},{
 	        field: "mgr_id",
 			title: "Manager ID",
 			headerTemplate: 'Manager ID <span class="k-icon k-i-kpi"></span>',
-	        width: "120px"
+			width: "120px",
+			filterable: {
+				extra : false,
+				ui : $scope.mgrFilter
+			}
 	    }],
     };
 
@@ -297,21 +414,50 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 	  selectable : true,
 	  editable: "inline",
 	  pageable: true,
-	  filterable: {mode : "row"},
+	  filterable: true,
       dataSource : $scope.depatments,
       columns:  [{
 	        field: "id",
 			title: "id",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
 			headerTemplate: 'ID <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	        },{
 	        field: "name",
 			title: "Name",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  startswith: "Starts with",
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
 			headerTemplate: 'Name <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	        },{
 	        field: "head",
 			title: "Head",
+			filterable: {mode : "row",
+			extra : false,
+			operators: {
+				string: {
+				  startswith: "Starts with",
+				  eq: "Is equal to",
+				  neq: "Is not equal to"
+				}
+			}
+		    },
 			headerTemplate: 'Head <span class="k-icon k-i-kpi"></span>',
 	        width: "120px"
 	    }]	
@@ -319,31 +465,44 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 
 	$scope.addEmp = function (emp) {
 		console.log(emp)
-		emp.dep_id = emp.dep_id.depID;
-		emp.mgr_id = emp.mgr_id.mgrID;
-		$scope.workers.add(emp);
-		var data = $scope.workers.data();
-		var lastItem = data[data.length - 1];
+		if(emp.id === undefined || emp.name === undefined || emp.dep_id=== undefined || emp.sal=== undefined || emp.birthDate=== undefined || emp.hireDate=== undefined || emp.mgr_id=== undefined){
+		$scope.errorToast("Please Fill All Fields!")
+		}else{
+			console.log(emp)
+			emp.dep_id = emp.dep_id.depID;
+			emp.mgr_id = emp.mgr_id.mgrID;
+			$scope.workers.add(emp);
+			var data = $scope.workers.data();
+			var lastItem = data[data.length - 1];
+			$scope.successToast("Successfully Added An Employee!");
+		}
 	};
 	$scope.addDep = function (dep) {
-		console.log("function wworks", dep)
-		$scope.depatments.add(dep);
-		var data = $scope.depatments.data();
-		var lastItem = data[data.length - 1];
+		console.log("add department wworks", dep, dep.name === undefined)
+		if(dep.id === undefined || dep.name === undefined || dep.head ===undefined){
+		console.log("detected")
+		$scope.errorToast("Please Enter All Fields!")
+		}else{
+			$scope.depatments.add(dep);
+			var data = $scope.depatments.data();
+			var lastItem = data[data.length - 1];
+			$scope.successToast("Successfully Added A Department!")
+		}
+
+	};
+	$scope.successToast = function(message){
+		$mdToast.show($mdToast.simple({
+			hideDelay: 500,
+			position: 'top right',
+			content: message,
+			toastClass: 'success'			
+		}))
 	};
 	$scope.updateEmp = function (data) {
 		console.log(data)
 		$scope.selected = data;
 	};
 
-
-	$scope.sortCollumn = "name";
-	$scope.reverseSort = false;
-	$scope.sortData = function (collumn) {
-		console.log("clicked")
-		$scope.reverseSort = ($scope.sortCollumn == collumn) ? !$scope.reverseSort : false
-		$scope.sortCollumn = collumn;
-	};
 })
 
 
