@@ -18,25 +18,25 @@
 <div ng-show="click.newEntity">
     <h5>Add</h5>
     <p ng-show="addForm.name.$invalid && !addForm.name.$pristine" style="color: red">Enter a valid name.</p>
-    <td><button  ng-click="addEmp(emp); click.newEntity=false">save</button></td>
-    <td><input kendo-numerictextbox style="width: 10%;" ng-model="emp.id" type="number" min="0" name="id" ng-required="true"></td>
-    <td><input  class="k-textbox" ng-model="emp.name" style="width: 11%;"  name="name" type="text" ng-required="true" type="text" ng-minlength="3" ng-maxlength="8"></td>
+    <td><button  ng-click="addEmp(addedEmployee); click.newEntity=false">save</button></td>
+    <td><input kendo-numerictextbox style="width: 10%;" ng-model="addedEmployee.id" type="number" min="0" name="id" ng-required="true"></td>
+    <td><input  class="k-textbox" ng-model="addedEmployee.name" style="width: 11%;"  name="name" type="text" ng-required="true" type="text" ng-minlength="3" ng-maxlength="8"></td>
     <td>
       <select style="width: 18%;"
       kendo-dropdownlist
-      k-ng-model="emp.dep_id"
+      k-ng-model="addedEmployee.dep_id"
       k-data-value-field="'depID'"
       k-data-text-field="'depName'"
       k-data-source="dropDataSourceDep"
       ng-required="true"></select>
     </td>
-    <td><input class="k-textbox" style="width: 11%;" ng-model="emp.sal" type="number" ng-required="true" min="0" ></td>
-    <td><input kendo-date-picker ng-model="emp.birthDate" ng-required="true" style="width: 15%;"></td>   
-    <td><input kendo-date-picker ng-model="emp.hireDate" ng-required="true" style="width: 15%;"></td>
+    <td><input class="k-textbox" style="width: 11%;" ng-model="addedEmployee.sal" type="number" ng-required="true" min="0" ></td>
+    <td><input kendo-date-picker ng-model="addedEmployee.birthDate" ng-required="true" style="width: 15%;"></td>   
+    <td><input kendo-date-picker ng-model="addedEmployee.hireDate" ng-required="true" style="width: 15%;"></td>
     <td>
       <select  style="width: 11%;"
       kendo-dropdownlist
-      k-ng-model="emp.mgr_id"
+      k-ng-model="addedEmployee.mgr_id"
       k-data-value-field="'mgrID'"
       k-data-text-field="'mgrName'"
       k-data-source="dropDataSourceMgr"

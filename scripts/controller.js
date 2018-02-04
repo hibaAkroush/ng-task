@@ -467,27 +467,27 @@ myApp.controller('myCtrl',function ($scope, $http, $mdDialog, $mdToast, sharedDa
 		}
 	}
 	
-	$scope.addEmp = function (emp) {
+	$scope.addEmp = function (addedEmployee) {
 		
-		if(emp.id === undefined || emp.name === undefined || emp.dep_id=== undefined || emp.sal=== undefined || emp.birthDate=== undefined || emp.hireDate=== undefined || emp.mgr_id=== undefined){
+		if(addedEmployee.id === undefined || addedEmployee.name === undefined || addedEmployee.dep_id=== undefined || addedEmployee.sal=== undefined || addedEmployee.birthDate=== undefined || addedEmployee.hireDate=== undefined || addedEmployee.mgr_id=== undefined){
 		$scope.errorToast("Please Fill All Fields!")
 		}else{
-			console.log(emp)
-			emp.dep_id = emp.dep_id.depID;
-			emp.mgr_id = emp.mgr_id.mgrID;
-			$scope.workers.add(emp);
+			console.log(addedEmployee)
+			addedEmployee.dep_id = addedEmployee.dep_id.depID;
+			addedEmployee.mgr_id = addedEmployee.mgr_id.mgrID;
+			$scope.workers.add(addedEmployee);
 			var data = $scope.workers.data();
 			var lastItem = data[data.length - 1];
 			$scope.successToast("Successfully Added An Employee!");
 		}
 	};
-	$scope.addDep = function (dep) {
-		console.log("add department wworks", dep, dep.name === undefined)
-		if(dep.id === undefined || dep.name === undefined || dep.head === undefined){
+	$scope.addDep = function (departmentAdd) {
+		console.log("add departmentAddartment wworks", departmentAdd, departmentAdd.name === undefined, $scope.depatments.data())
+		if(departmentAdd.id === undefined || departmentAdd.name === undefined || departmentAdd.head === undefined){
 		console.log("detected")
 		$scope.errorToast("Please Enter All Fields!")
 		}else{
-			$scope.depatments.add(dep);
+			$scope.depatments.add(departmentAdd);
 			var data = $scope.depatments.data();
 			var lastItem = data[data.length - 1];
 			$scope.successToast("Successfully Added A Department!")

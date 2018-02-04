@@ -19,14 +19,13 @@
     
     <p ng-show="addManForm.name.$invalid && !addManForm.name.$pristine" style="color: red">Enter a valid name.</p>
     <p ng-show="addManForm.head.$invalid && !addManForm.head.$pristine" style="color: red">Enter a valid name.</p>
-    <tr>
+    <tr></tr>
     <td><h5>Add</h5></td>
-    <td><button  ng-click="addDep(dep); newEntity=false">save</button></td>
-    <td><input kendo-numerictextbox ng-model="dep.id" type="number"  min="0" ng-required="true"></td>
-    <td><input  class="k-textbox" ng-model="dep.name" type="text" ng-required="true" ng-minlength="3" ng-maxlength="8" name="name"></td>
-    <td><input  class="k-textbox" ng-model="dep.head" type="text" ng-required="true" ng-minlength="3" ng-maxlength="8"name="head"></td>
-  </tr>
-  </div> 
+    <td><button  ng-click="addDep(departmentAdd); newEntity=false">save</button></td>
+    <td><input kendo-numerictextbox ng-model="departmentAdd.id" type="number"  min="0" ng-required="true"></td>
+    <td><input  class="k-textbox" ng-model="departmentAdd.name" type="text" ng-required="true" ng-minlength="3" ng-maxlength="8" name="name"></td>
+    <td><input  class="k-textbox" ng-model="departmentAdd.head" type="text" ng-required="true" ng-minlength="3" ng-maxlength="8"name="head"></td>
+</div> 
 </form>
 
 <form name="updateManForm" novalidate>
